@@ -18,9 +18,14 @@ onBeforeMount(async () => {
     state.currencyMap[currency.code] = currency;
   });
   getData();
+  setInterval(() => {
+    if (!state.tempAccount.address) {
+      getData(false);
+    }
+  }, 60 * 1000)
 });
-async function getData() {
-  state.loading = true;
+async function getData(loading = true) {
+  state.loading = loading;
   state.accounts = await API.GetBlanceAndProofs(state.addressList);
   state.loading = false;
 }
