@@ -17,8 +17,8 @@ let dataSource = computed(() => {
       height: account.verified_tower_height || 0,
       latest_epoch_mining: account.latest_epoch_mining || 0,
     };
-    let localHeight = data.height - data.proofs + 72;
-    data.proofsAndheight = `${data.proofs} (${data.height}) [${localHeight}]`;
+    // let localHeight = data.height - data.proofs + 72;
+    data.proofsAndheight = `${data.proofs}`;
     return data;
   });
 });
@@ -54,7 +54,7 @@ let columns = [
     dataIndex: "balance",
   },
   {
-    title: "证明(塔高)[本地]",
+    title: "证明",
     dataIndex: "proofsAndheight",
   },
 ];
@@ -83,6 +83,7 @@ const customRow = (record) => {
     :columns="columns"
     :pagination="false"
     :custom-row="customRow"
+    size="small"
   >
     <template #summary>
       <a-table-summary fixed>
