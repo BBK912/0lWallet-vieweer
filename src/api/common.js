@@ -11,7 +11,7 @@ export async function GetCurrencyScale() {
 }
 export async function GetAccount(address) {
     let data = Array.isArray(address)
-        ? address.map((ad) => {
+        ? address.slice(0,20).map((ad) => {
               return {
                   jsonrpc: '2.0',
                   method: 'get_account',
@@ -34,7 +34,7 @@ export async function GetAccount(address) {
 }
 export async function GetTowerStateView(address) {
     let data = Array.isArray(address)
-        ? address.map((ad) => {
+        ? address.slice(0,20).map((ad) => {
               return {
                   jsonrpc: '2.0',
                   method: 'get_tower_state_view',

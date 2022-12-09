@@ -83,10 +83,10 @@ const showDeleteConfirm = () => {
 <style scoped>
   .header {
     background-color: #ff5959;
-    padding: 16px 8px;
+    padding: 0px 8px;
     margin: 0;
   }
   img {
-    height: 35px;
+    height: 20px;
   }
 </style>

@@ -8,7 +8,7 @@ let dataSource = computed(() => {
   return (state.accounts || []).map((account) => {
     const data = {
       tag: account.address.slice(0, 4).toUpperCase(),
-      address: account.address.slice(0, 10),
+      address: account.address,
       addressfull: account.address,
       balance: (
         (account.balances[0].amount || 0) / (state.currencyMap.GAS.scaling_factor || 1)
@@ -17,8 +17,8 @@ let dataSource = computed(() => {
       height: account.verified_tower_height || 0,
       latest_epoch_mining: account.latest_epoch_mining || 0,
     };
-    // let localHeight = data.height - data.proofs + 72;
-    data.proofsAndheight = `${data.proofs}`;
+    let localHeight = data.height - data.proofs + 72;
+    data.proofsAndheight = `${data.proofs} (${data.height})`;
     return data;
   });
 });
@@ -54,7 +54,7 @@ let columns = [
     dataIndex: "balance",
   },
   {
-    title: "证明",
+    title: "本轮证明(链上塔高)",
     dataIndex: "proofsAndheight",
   },
 ];
@@ -66,13 +66,6 @@ const customRow = (record) => {
       "background-position": "bottom",
       "background-size": "100% 6px",
       "background-repeat-y": "no-repeat",
-    },
-    onDblclick: () => {
-      let index = state.addressList.indexOf(record.addressfull);
-      if (index !== -1) {
-        state.addressList.splice(index, 1);
-        emit("delete");
-      }
     },
   };
 };
