@@ -31,7 +31,8 @@ async function getData(loading = true) {
 }
 function onAdd({ address }) {
   if (address) {
-    state.addressList.push(address);
+    address = address.split(',');
+    state.addressList = Array.from(new Set( state.addressList.concat(address)));
     localStorage.setItem("addressList", JSON.stringify(state.addressList));
     getData();
   }
@@ -67,7 +68,7 @@ const showDeleteConfirm = () => {
     <img src="./assets/0l-logo.png" alt="0l Network" />
   </h2>
   <a-spin :spinning="state.loading">
-    <addAccountVue @add="onAdd" @clearAll="showDeleteConfirm" />
+    <!-- <addAccountVue @add="onAdd" @clearAll="showDeleteConfirm" /> -->
     <addressList @delete="onDelete" />
   </a-spin>
 
