@@ -74,6 +74,13 @@ let y = window.innerHeight - 112;
     :scroll="{ x: '100%', y: y }"
     bordered
   >
+  <template #bodyCell="{ column, record }">
+    <template v-if="column.dataIndex === 'address'">
+        <a :href="'https://0l.interblockcha.in/address/' +record.address " target="_blank" style="color:currentColor">
+          {{ record.address }}
+        </a>
+      </template>
+  </template>
     <template #summary>
       <a-table-summary fixed>
         <a-table-summary-row>
