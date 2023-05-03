@@ -11,7 +11,7 @@ function onFinish() {
 }
 </script>
   <template>
-  <div style="padding: 15px;">
+  <div style="padding: 5px;">
     <a-form  :model="tempAccount" autocomplete="off" @finish="onFinish">
       <a-form-item
         label="Adress"

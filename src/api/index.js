@@ -1,6 +1,6 @@
 import axios from 'axios';
 export const Service = axios.create({
-    baseURL: 'https://my-wallet.0l-network.workers.dev/',
+    baseURL: 'http://100.21.134.51:8080',
     timeout: 1000 * 30,
     headers: {
         'Content-Type': 'application/json',

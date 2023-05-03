@@ -59,7 +59,7 @@ let columns = [
     dataIndex: "proofsAndheight",
   },
 ];
-let y = window.innerHeight - 112;
+let y = window.innerHeight - 236;
 </script>
 <template>
   <a-table
