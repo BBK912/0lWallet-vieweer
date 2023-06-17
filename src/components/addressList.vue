@@ -59,7 +59,7 @@ let columns = [
     dataIndex: "proofsAndheight",
   },
 ];
-let y = window.innerHeight - 236;
+let y = window.innerHeight - 196;
 </script>
 <template>
   <a-table
@@ -93,7 +93,7 @@ let y = window.innerHeight - 236;
           >
           <a-table-summary-cell :index="3">{{
             total.proofs
-          }}</a-table-summary-cell>
+          }} ({{ dataSource.filter(t => t.proofsAndheight > 0).length }})</a-table-summary-cell>
         </a-table-summary-row>
       </a-table-summary>
     </template>
