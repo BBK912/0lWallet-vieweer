@@ -10,10 +10,10 @@ let dataSource = computed(() => {
       tag: account.address.slice(0, 4).toUpperCase(),
       address: account.address,
       addressfull: account.address,
-      balance: (
+      balance: Math.floor(
         (account.balances[0].amount || 0) /
         (state.currencyMap.GAS.scaling_factor || 1)
-      ).toFixed(2),
+      ),
       proofs: account.actual_count_proofs_in_epoch || 0,
       height: account.verified_tower_height || 0,
       latest_epoch_mining: account.latest_epoch_mining || 0,
@@ -34,7 +34,7 @@ let total = computed(() => {
     epoch = Math.max(epoch, t.latest_epoch_mining);
   });
   return {
-    balance: balance.toFixed(2),
+    balance,
     proofs,
     height,
     epoch,
