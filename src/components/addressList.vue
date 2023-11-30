@@ -76,7 +76,7 @@ let y = window.innerHeight - 196;
   >
   <template #bodyCell="{ column, record }">
     <template v-if="column.dataIndex === 'address'">
-        <a :href="'https://0l.interblockcha.in/address/' +record.address " target="_blank" style="color:currentColor">
+        <a :href="`https://0l.fyi/accounts/0x${record.address}/resources`" target="_blank" style="color:currentColor">
           {{ record.address }}
         </a>
       </template>
