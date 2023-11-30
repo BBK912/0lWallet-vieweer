@@ -12,19 +12,15 @@ import addressList from "./components/addressList.vue";
 let state = useProvideState();
 
 onBeforeMount(async () => {
-  state.loading = true;
-  let currencys = await API.GetCurrencyScale();
-  currencys.map((currency) => {
-    state.currencyMap[currency.code] = currency;
-  });
   getData();
-  setInterval(() => {
-    if (!state.tempAccount.address) {
-      getData(false);
-    }
-  }, 60 * 1000)
+  // setInterval(() => {
+  //   if (!state.tempAccount.address) {
+  //     getData(false);
+  //   }
+  // }, 60 * 1000)
 });
 async function getData(loading = true) {
+  if (state.loading) return;
   state.loading = loading;
   state.accounts = await API.GetBlanceAndProofs(state.addressList);
   state.loading = false;
@@ -72,13 +68,6 @@ const showDeleteConfirm = () => {
     <addressList @delete="onDelete" />
   </a-spin>
 
-  <!-- <div v-for="account in state.accounts">
-    <h4>地址: {{ account.address }}</h4>
-    <p v-for="b in account.balances">
-      <span>{{ b.currency }}</span> : 
-      <span v-if="state.currencyMap[b.currency]">{{ (b.amount / state.currencyMap[b.currency].scaling_factor).toFixed(2) }}</span>
-    </p>
-  </div> -->
 </template>
 
 <style scoped>

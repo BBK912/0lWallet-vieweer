@@ -11,10 +11,10 @@ let dataSource = computed(() => {
       address: account.address,
       addressfull: account.address,
       balance: Math.floor(
-        (account.balances[0].amount || 0) /
-        (state.currencyMap.GAS.scaling_factor || 1)
+        (account.coin.value || 0) /
+        (1000000)
       ),
-      proofs: account.actual_count_proofs_in_epoch || 0,
+      proofs: account.count_proofs_in_epoch || 0,
       height: account.verified_tower_height || 0,
       latest_epoch_mining: account.latest_epoch_mining || 0,
     };

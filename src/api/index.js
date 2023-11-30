@@ -23,3 +23,9 @@ export function post(data) {
         method: 'post',
     });
 }
+export function get(url) {
+    return Service.request({
+        url,
+        method: 'get',
+    });
+}
