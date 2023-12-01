@@ -4,19 +4,12 @@ const WalletResourceType = {
     proofs: '0x1::oracle::Tower', // 0x1::oracle::Tower
     balance: '0x1::coin::CoinStore<0x1::libra_coin::LibraCoin>',
 };
+const provideListUrl = 'https://rpc.0l.fyi/v1/accounts/0x01/resource/0x1::oracle::ProviderList';
 const rpcUrl = (v5Address, type = '') =>
     `https://rpc.0l.fyi/v1/accounts/0x${v5Address}/resource/${encodeURIComponent(
         type
     )}`;
-export async function GetCurrencyScale() {
-    let res = await post({
-        jsonrpc: '2.0',
-        method: 'get_currencies',
-        params: [],
-        id: 1,
-    });
-    return res.result || [];
-}
+
 async function GetAccount(address) {
     let data = Array.isArray(address) ? address : [address];
     return await Promise.all(
@@ -59,4 +52,12 @@ export async function GetBlanceAndProofs(address) {
         }
     });
     return Object.values(bMap);
+}
+export async function getProvideList() {
+    try {
+        let ret = await get(provideListUrl);
+        return ret.data.current_above_threshold;
+    } catch (e) {
+        console.log(e)
+    }
 }

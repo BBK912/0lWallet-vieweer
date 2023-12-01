@@ -1,7 +1,7 @@
 <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import { reactive, onBeforeMount, createVNode } from "vue";
+import { reactive, onBeforeMount, createVNode, computed } from "vue";
 import { Modal } from "ant-design-vue";
 import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
 
@@ -10,19 +10,26 @@ import { useProvideState } from "./state";
 import addAccountVue from "./components/addAccount.vue";
 import addressList from "./components/addressList.vue";
 let state = useProvideState();
-
+let aboveThresholdList =  computed(() => {
+  return state.addressList.filter((address) => {
+    let addr = address.replace(/^0+/g, '');
+    addr = '0x' + addr;
+    return state.provideList.includes(addr.toLowerCase());
+  })
+})
 onBeforeMount(async () => {
   getData();
-  // setInterval(() => {
-  //   if (!state.tempAccount.address) {
-  //     getData(false);
-  //   }
-  // }, 60 * 1000)
+  setInterval(() => {
+    if (!state.tempAccount.address) {
+      getData(false);
+    }
+  }, 60 * 1000)
 });
 async function getData(loading = true) {
   if (state.loading) return;
   state.loading = loading;
-  state.accounts = await API.GetBlanceAndProofs(state.addressList);
+  // state.accounts = await API.GetBlanceAndProofs(state.addressList);
+  state.provideList = await API.getProvideList();
   state.loading = false;
 }
 function onAdd({ address }) {
@@ -64,8 +71,12 @@ const showDeleteConfirm = () => {
     <img src="./assets/0l-logo.png" alt="0l Network" />
   </h2>
   <a-spin :spinning="state.loading">
-    <addAccountVue @add="onAdd" @clearAll="showDeleteConfirm" />
-    <addressList @delete="onDelete" />
+    <!-- <addAccountVue @add="onAdd" @clearAll="showDeleteConfirm" /> -->
+    <!-- <addressList @delete="onDelete" /> -->
+    <h3 style="font-size: 180px;
+    margin: 0px auto;
+    width: 50%;
+    text-align: center;">{{ aboveThresholdList.length }} / {{ state.provideList.length }}</h3>
   </a-spin>
 
 </template>

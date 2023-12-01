@@ -73,6 +73,7 @@ let addressList = [
     "FCED4ECCF2F961768E8378A46615287A"
   ]
 const state = reactive({
+    provideList: [],
     addressList: addressList,
     accounts: [
         {
