@@ -20,7 +20,7 @@ let dataSource = computed(() => {
     };
     data.proofsAndheight = `${data.proofs}`;
     return data;
-  });
+  }).sort((a, b) => a.proofs - b.proofs);
 });
 let total = computed(() => {
   let balance = 0;
@@ -93,7 +93,7 @@ let y = window.innerHeight - 196;
           >
           <a-table-summary-cell :index="3">{{
             total.proofs
-          }} ({{ dataSource.filter(t => t.proofsAndheight > 0).length }})</a-table-summary-cell>
+          }} ({{ dataSource.filter(t => t.proofsAndheight > 7).length }})</a-table-summary-cell>
         </a-table-summary-row>
       </a-table-summary>
     </template>

@@ -1,7 +1,7 @@
 import { post, get } from './index';
 import chunk from 'lodash.chunk';
 const WalletResourceType = {
-    proofs: '0x1::tower_state::TowerProofHistory',
+    proofs: '0x1::oracle::Tower', // 0x1::oracle::Tower
     balance: '0x1::coin::CoinStore<0x1::libra_coin::LibraCoin>',
 };
 const rpcUrl = (v5Address, type = '') =>
@@ -34,7 +34,12 @@ async function GetTowerStateView(address) {
 
     return await Promise.all(
       data.map(async (addr) => {
-            const proofData =  await get(rpcUrl(addr, WalletResourceType.proofs));
+            let  proofData = {};
+            try {
+                proofData =  await get(rpcUrl(addr, WalletResourceType.proofs));
+            } catch (e) {
+                
+            }
             return {
               address: addr,
               ...proofData.data
