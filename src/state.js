@@ -89,6 +89,7 @@ const state = reactive({
         address: ''
     },
     loading: false,
+    totalReward: 0,
 })
 export function useProvideState() {
     provide(walletStateContext, state);

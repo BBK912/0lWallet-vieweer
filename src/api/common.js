@@ -5,6 +5,7 @@ const WalletResourceType = {
     balance: '0x1::coin::CoinStore<0x1::libra_coin::LibraCoin>',
 };
 const provideListUrl = 'https://rpc.0l.fyi/v1/accounts/0x01/resource/0x1::oracle::ProviderList';
+const epochRewarsUrl = 'https://rpc.0l.fyi/v1/accounts/0x01/resource/0x1::proof_of_fee::ConsensusReward';
 const rpcUrl = (v5Address, type = '') =>
     `https://rpc.0l.fyi/v1/accounts/0x${v5Address}/resource/${encodeURIComponent(
         type
@@ -57,6 +58,15 @@ export async function getProvideList() {
     try {
         let ret = await get(provideListUrl);
         return ret.data.current_above_threshold;
+    } catch (e) {
+        console.log(e)
+    }
+}
+export async function getEpochReward() {
+    try {
+        let ret = await get(epochRewarsUrl);
+        let diff = ret.data.nominal_reward - ret.data.entry_fee;
+        return diff > 0 ? diff : 0;
     } catch (e) {
         console.log(e)
     }

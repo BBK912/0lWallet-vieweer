@@ -30,6 +30,7 @@ async function getData(loading = true) {
   state.loading = loading;
   // state.accounts = await API.GetBlanceAndProofs(state.addressList);
   state.provideList = await API.getProvideList();
+  state.totalReward = await API.getEpochReward();
   state.loading = false;
 }
 function onAdd({ address }) {
@@ -73,10 +74,14 @@ const showDeleteConfirm = () => {
   <a-spin :spinning="state.loading">
     <!-- <addAccountVue @add="onAdd" @clearAll="showDeleteConfirm" /> -->
     <!-- <addressList @delete="onDelete" /> -->
-    <h3 style="font-size: 180px;
+    <h3 style="font-size: 48px;
     margin: 0px auto;
     width: 50%;
     text-align: center;">{{ aboveThresholdList.length }} / {{ state.provideList.length }}</h3>
+    <h3 style="font-size: 48px;
+    margin: 0px auto;
+    width: 50%;
+    text-align: center;">{{ (state.totalReward / 1000000) .toFixed(2)}}</h3>
   </a-spin>
 
 </template>
